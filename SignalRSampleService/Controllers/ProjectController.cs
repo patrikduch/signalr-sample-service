@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Net5WebAPI.Dtos;
+using SignalRSampleService.Dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-namespace Net5WebAPI.Controllers
+namespace SignalRSampleService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
