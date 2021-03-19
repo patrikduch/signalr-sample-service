@@ -1,3 +1,5 @@
 .vs/
 SignalRSampleService/obj/
 SignalRSampleService/bin/
+SignalRSampleService.Sync/obj/
+SignalRSampleService.Sync/bin/

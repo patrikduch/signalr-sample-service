@@ -16,4 +16,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SignalRHubs\SignalRSampleService.Sync.csproj" />
+    <ProjectReference Include="..\SignalRSampleService.Sync\SignalRSampleService.Sync.csproj" />
+  </ItemGroup>
+
 </Project>
