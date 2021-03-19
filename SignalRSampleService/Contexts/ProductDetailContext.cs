@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SignalRSampleService.Dtos;
+using SignalRSampleService.Models;
 using SignalRSampleService.Models.ModelsConfiguration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SignalRSampleService.Contexts
 {
@@ -24,13 +20,13 @@ namespace SignalRSampleService.Contexts
         /// <param name="builder">Modelbuilder instance that is used for additional Model configuration.</param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
             // Addd the Postgres Extension for UUID generation
             builder.HasPostgresExtension("uuid-ossp");
 
+            // Rules for the ProjectDetail entity
             builder.ApplyConfiguration(new ProjectDetailConfiguration());
         }
 
-        public DbSet<ProjectDetail> ProjectDetail { get; set; }
+        public DbSet<ProjectDetailModel> ProjectDetail { get; set; }
     }
 }

@@ -1,26 +1,27 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SignalRSampleService.Models
 {
     /// <summary>
     /// ProjectDetail model class, that represents all basic information about web project.
     /// </summary>
-    public class ProjectDetail
+    public class ProjectDetailModel
     {
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public ProjectDetail()
+        public ProjectDetailModel()
         {
             Id = new Guid();
         }
 
 
+
         /// <summary>
         ///  Gets or sets project identifier.
         /// </summary>
-        public Guid Id { get; private set; }
+
+        [Key]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets project's name.
