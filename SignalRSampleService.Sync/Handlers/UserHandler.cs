@@ -1,6 +1,9 @@
-﻿namespace SignalRSampleService.Hubs.Handlers
+﻿using System.Collections.Generic;
+
+namespace SignalRSampleService.Hubs.Handlers
 {
-    class UserHandler
+    public static class UserHandler
     {
+        public static HashSet<string> ConnectedIds = new HashSet<string>();
     }
 }

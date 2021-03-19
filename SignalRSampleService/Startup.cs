@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SignalRSampleService.Contexts;
+using SignalRSampleService.Hubs.Hubs;
 
 namespace SignalRSampleService
 {
@@ -28,6 +29,27 @@ namespace SignalRSampleService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SignalR Sample Service", Version = "v1" });
             });
 
+            #region CORS setup
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder
+                    .WithOrigins(
+                        "http://localhost",
+                        "http://aspnetcorereactreduxtemplate-env.eba-mcv635ym.eu-west-1.elasticbeanstalk.com"
+                    )
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    );
+            });
+            #endregion
+
+            #region
+            services.AddSignalR();
+            #endregion
+
+
             #region EFCore
             services.AddDbContext<ProjectDetailContext>(options => options.UseNpgsql
                 (Configuration.GetConnectionString("DefaultConnection"))
@@ -47,10 +69,12 @@ namespace SignalRSampleService
 
             app.UseRouting();
             app.UseAuthorization();
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ViewHub>("/hubs/view");
             });
         }
     }
