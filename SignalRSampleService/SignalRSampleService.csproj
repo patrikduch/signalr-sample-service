@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SignalRHubs\SignalRSampleService.Sync.csproj" />
     <ProjectReference Include="..\SignalRSampleService.Sync\SignalRSampleService.Sync.csproj" />
   </ItemGroup>
 
