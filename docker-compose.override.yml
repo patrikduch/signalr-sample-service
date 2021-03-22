@@ -14,5 +14,17 @@ services:
       - postgres.env # configure postgres
     volumes:
       - postgres-db-data:/var/lib/postgresql/data/ # persist data even 
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+     - 5672:5672 # communication port
+     - 15672:15672 # rabbitmq portal
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    hostname: rabbitmq
+
 volumes:
   postgres-db-data:
+  rabbitmq-data:
