@@ -6,3 +6,13 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
+
+  postgresdb:
+    container_name: postgres_db
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - postgres.env # configure postgres
+    volumes:
+      - postgres-db-data:/var/lib/postgresql/data/ # persist data even 
+volumes:
+  postgres-db-data:
