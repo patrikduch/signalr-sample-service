@@ -7,8 +7,6 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["SignalRSampleService/SignalRSampleService.csproj", "SignalRSampleService/"]
-COPY ["SignalRSampleService.RabbitMq/SignalRSampleService.RabbitMq.csproj", "SignalRSampleService.RabbitMq/"]
-COPY ["SignalRSampleService.Sync/SignalRSampleService.Sync.csproj", "SignalRSampleService.Sync/"]
 RUN dotnet restore "SignalRSampleService/SignalRSampleService.csproj"
 COPY . .
 WORKDIR "/src/SignalRSampleService"

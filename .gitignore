@@ -5,3 +5,5 @@ SignalRSampleService.Sync/obj/
 SignalRSampleService.Sync/bin/
 SignalRSampleService.RabbitMq/obj/
 SignalRSampleService.RabbitMq/bin/
+bin/
+obj/

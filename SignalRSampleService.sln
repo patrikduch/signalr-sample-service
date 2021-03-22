@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRSampleService", "Sig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRSampleService.Sync", "SignalRSampleService.Sync\SignalRSampleService.Sync.csproj", "{C6D83D74-A265-4230-9EEE-F42D3131D556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRSampleService.RabbitMq", "SignalRSampleService.RabbitMq\SignalRSampleService.RabbitMq.csproj", "{98E62060-4538-4941-9160-2858942B5B04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRSampleService.RabbitMq", "SignalRSampleService.RabbitMq\SignalRSampleService.RabbitMq.csproj", "{98E62060-4538-4941-9160-2858942B5B04}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{15C18536-A808-496D-9AA2-51E1EF5F91AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{98E62060-4538-4941-9160-2858942B5B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E62060-4538-4941-9160-2858942B5B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98E62060-4538-4941-9160-2858942B5B04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15C18536-A808-496D-9AA2-51E1EF5F91AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15C18536-A808-496D-9AA2-51E1EF5F91AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15C18536-A808-496D-9AA2-51E1EF5F91AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15C18536-A808-496D-9AA2-51E1EF5F91AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
