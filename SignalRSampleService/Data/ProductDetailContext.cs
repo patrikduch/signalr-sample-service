@@ -5,19 +5,20 @@ using SignalRSampleService.Models.ModelsConfiguration;
 namespace SignalRSampleService.Contexts
 {
     /// <summary>
-    /// DB context for managing project detail details.
+    /// Custom <seealso cref="DbContext"/> for managing project details.
     /// </summary>
     public class ProjectDetailContext : DbContext
     {
-        public ProjectDetailContext(DbContextOptions<ProjectDetailContext> options) : base(options)
-        {
-
-        }
+        /// <summary>
+        /// Initializes a new instance of the <seealso cref="ProjectDetailContext"/> class.
+        /// </summary>
+        /// <param name="options"></param>
+        public ProjectDetailContext(DbContextOptions<ProjectDetailContext> options) : base(options){}
 
         /// <summary>
-        /// Configuration setup for ProjectDetail DB context.
+        /// Configuration setup for <seealso cref="ProjectDetailContext"/>.
         /// </summary>
-        /// <param name="builder">Modelbuilder instance that is used for additional Model configuration.</param>
+        /// <param name="builder"><seealso cref="ModelBuilder"/> instance that is used for additional Model configuration.</param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Addd the Postgres Extension for UUID generation
@@ -27,6 +28,9 @@ namespace SignalRSampleService.Contexts
             builder.ApplyConfiguration(new ProjectDetailConfiguration());
         }
 
+        /// <summary>
+        /// Dbset for accessing <seealso cref="ProjectDetailModel"/> objects.
+        /// </summary>
         public DbSet<ProjectDetailModel> ProjectDetail { get; set; }
     }
 }

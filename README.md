@@ -10,7 +10,18 @@ docker build -f Dockerfile -t signalr-sample-service .
 
 docker run -p 8080:8080 signalr-sample-service 
 
-## dvelopment
+## development
 
 <li>RabbitMQ portal</li>
 http://localhost:15672/#
+
+
+## data layer
+
+### add migration
+
+add-migration CompanyEntity -Project SignalRSampleService -Context CompanyContext
+
+### save changes (migrate to the new version)
+
+Update-Database -Project SignalRSampleService -Context CompanyContext

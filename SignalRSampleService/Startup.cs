@@ -6,7 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SignalRSampleService.Contexts;
+using SignalRSampleService.Data;
 using SignalRSampleService.Hubs.Hubs;
+using SignalRSampleService.Repositories;
 
 namespace SignalRSampleService
 {
@@ -54,6 +56,15 @@ namespace SignalRSampleService
             services.AddDbContext<ProjectDetailContext>(options => options.UseNpgsql
                 (Configuration.GetConnectionString("DefaultConnection"))
             );
+
+            services.AddDbContext<CompanyContext>(options => options.UseNpgsql
+                (Configuration.GetConnectionString("DefaultConnection"))
+            );
+            #endregion
+
+
+            #region Data repositories
+            services.AddScoped<ICompanyRepository, CompanyRepositoryEF>();
             #endregion
         }
 

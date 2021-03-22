@@ -8,13 +8,13 @@ namespace SignalRSampleService.Models
     /// </summary>
     public class ProjectDetailModel
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public ProjectDetailModel()
         {
             Id = new Guid();
         }
-
-
 
         /// <summary>
         ///  Gets or sets project identifier.
