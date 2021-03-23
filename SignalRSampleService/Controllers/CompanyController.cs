@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SignalRSampleService.Dtos;
 using SignalRSampleService.Models;
 using SignalRSampleService.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,12 +25,19 @@ namespace SignalRSampleService.Controllers
             _companyRepository = companyRepository;
         }
 
-
         // GET: api/<CompanyController>
         [HttpGet]
-        public async Task<IEnumerable<CompanyModel>> Get()
+        public async Task<IEnumerable<CompanyItemDto>> Get()
         {
             return await _companyRepository.GetAll();
+        }
+
+        // GET: api/<CompanyController>/guid
+        [HttpGet]
+        [Route("/{companyId}")]
+        public async Task<CompanyItemDto> GetById(Guid companyId)
+        {
+            return await _companyRepository.Find(companyId);
         }
     }
 }

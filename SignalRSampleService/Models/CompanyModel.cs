@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 
 namespace SignalRSampleService.Models
 {
     public class CompanyModel
     {
-        [Key]
-        public int CompanyId { get; set; }
+        public CompanyModel()
+        {
+            Id = new Guid();
+        }
+
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -16,6 +20,5 @@ namespace SignalRSampleService.Models
         public string State { get; set; }
 
         public string PostalCode { get; set; }
-
     }
 }

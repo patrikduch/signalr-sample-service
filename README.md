@@ -1,5 +1,16 @@
 # signalr-sample-service
 
+## dependencies
+
+<ul>
+    <li>Automapper</li>
+    <li>Dapper MicroORM</li>
+    <li>EFCore</li>
+    <li>NET 5</li>
+    <li>SignalR</li>
+<ul>
+
+
 ## dockerization
 
 ### build image
@@ -25,3 +36,6 @@ add-migration CompanyEntity -Project SignalRSampleService -Context CompanyContex
 ### save changes (migrate to the new version)
 
 Update-Database -Project SignalRSampleService -Context CompanyContext
+
+
+

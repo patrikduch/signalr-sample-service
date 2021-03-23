@@ -1,4 +1,6 @@
-﻿using SignalRSampleService.Models;
+﻿using SignalRSampleService.Dtos;
+using SignalRSampleService.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,9 +11,9 @@ namespace SignalRSampleService.Repositories
     /// </summary>
     public interface ICompanyRepository
     {
-        Task<CompanyModel> Find(int id);
+        Task<CompanyItemDto> Find(Guid id);
 
-        Task<IEnumerable<CompanyModel>> GetAll();
+        Task<IEnumerable<CompanyItemDto>> GetAll();
 
         Task<CompanyModel> Add(CompanyModel company);
 

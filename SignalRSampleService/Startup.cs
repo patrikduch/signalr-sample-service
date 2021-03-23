@@ -47,8 +47,12 @@ namespace SignalRSampleService
             });
             #endregion
 
-            #region
+            #region SignalR
             services.AddSignalR();
+            #endregion
+
+            #region Automapper
+            services.AddAutoMapper(typeof(Startup));
             #endregion
 
 
@@ -64,7 +68,7 @@ namespace SignalRSampleService
 
 
             #region Data repositories
-            services.AddScoped<ICompanyRepository, CompanyRepositoryEF>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
             #endregion
         }
 
