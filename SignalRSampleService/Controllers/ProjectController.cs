@@ -1,10 +1,8 @@
-﻿using MassTransit;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SignalRSampleService.Contexts;
+﻿using Microsoft.AspNetCore.Mvc;
 using SignalRSampleService.Dtos;
+using SignalRSampleService.RabbitMq.Producer;
+using SignalRSampleService.Repositories;
 using System.Threading.Tasks;
-using static SignalRSampleService.RabbitMq.Contracts.Contracts;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace SignalRSampleService.Controllers
@@ -13,44 +11,39 @@ namespace SignalRSampleService.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private readonly ProjectDetailContext _projectDetailContext;
 
-
-        private readonly IPublishEndpoint _publishEndpoint;
-
+        private readonly IProjectDetailRepository _projectDetailRepository;
+        private readonly IRabbitMqProducer _rabbitMqProducer;
 
         /// <summary>
         /// Initializes a new instance of the <seealso cref="ProjectController"/> WebAPI controller.
         /// </summary>
-        /// <param name="projectDetailContext">Injectable custom <seealso cref="DbContext"/> instance for manaing project details.</param>
-        public ProjectController(IPublishEndpoint publishEndpoint, ProjectDetailContext projectDetailContext)
+        /// <param name="projectDetailRepository">Injectable custom <seealso cref="IProjectDetailRepository"/> instance for manaing project details.</param>
+        public ProjectController(IProjectDetailRepository projectDetailRepository, IRabbitMqProducer rabbitMqProducer)
         {
-            _projectDetailContext = projectDetailContext;
-            _publishEndpoint = publishEndpoint;
+            _projectDetailRepository = projectDetailRepository;
+            _rabbitMqProducer = rabbitMqProducer;
         }
-
 
         // GET: api/<ProjectController>
         [HttpGet]
-        public async Task<ProjectDetail> Get()
+        public async Task<ProjectDetailDto> Get()
         {
-            var entity = await _projectDetailContext.ProjectDetail
-                .AsNoTracking()
-                .SingleOrDefaultAsync();
+            var entity = await _projectDetailRepository.GetProjectDetail();
 
-            return new ProjectDetail(entity.Name);
+            return new ProjectDetailDto(entity.Name);
         }
 
         // PUT: api/<ProjectController>
 
         [HttpPut]
-        public async Task<ProjectDetail> Put(ProjectDetailUpdate updateProjectDto)
+        public async Task<ProjectDetailDto> Put([FromBody] ProjectDetailUpdate updateProjectDto)
         {
+            await _projectDetailRepository.UpdateProjectDetail(updateProjectDto);
 
-            await _publishEndpoint.Publish(new ProjectDetailUpdated(updateProjectDto.name));
+            // _rabbitMqProducer.Publish($"Project detail has been updated! - > {updateProjectDto.Name}");
 
-            
-            return new ProjectDetail("");
+            return new ProjectDetailDto("");
         }
     }
 }

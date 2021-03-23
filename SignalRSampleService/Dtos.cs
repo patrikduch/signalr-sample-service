@@ -3,15 +3,15 @@
     /// <summary>
     /// Record DTO that repreents basic details about project.
     /// </summary>
-    public record ProjectDetail(string name);
+    public record ProjectDetailDto(string Name);
 
     /// <summary>
     /// Record DTO for updating project detail information.
     /// </summary>
-    public record ProjectDetailUpdate(string name);
+    public record ProjectDetailUpdate(string Name);
 
     /// <summary>
     /// Record DTO that repreents company item.
     /// </summary>
-    public record CompanyItemDto(string name, string address, string city, string state, string postalcode);
+    public record CompanyItemDto(string Name, string Address, string City, string State, string Postalcode);
 }

@@ -11,6 +11,7 @@ using SignalRSampleService.Configurations;
 using SignalRSampleService.Contexts;
 using SignalRSampleService.Data;
 using SignalRSampleService.Hubs.Hubs;
+using SignalRSampleService.RabbitMq.Producer;
 using SignalRSampleService.Repositories;
 
 namespace SignalRSampleService
@@ -72,10 +73,12 @@ namespace SignalRSampleService
 
             #region Data repositories
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IProjectDetailRepository, ProjectDetailRepository>();
             #endregion
 
-
-        
+            #region RabbitMQ dependencies
+            services.AddScoped<IRabbitMqProducer, RabbitMqProducer>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

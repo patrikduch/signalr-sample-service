@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: SignalRSampleService/Dockerfile
+    networks:
+      - app-network
   
   database:
     image: "postgres" # use latest official postgres version
@@ -27,9 +29,21 @@ services:
     networks:
       - app-network
 
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    networks:
+      - app-network
+    hostname: rabbitmq
 networks:
   app-network:
     driver: bridge
 
 volumes:
   databasedata:
+  rabbitmqdata:
