@@ -1,3 +1,5 @@
+using MassTransit;
+using MassTransit.Definition;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SignalRSampleService.Configurations;
 using SignalRSampleService.Contexts;
 using SignalRSampleService.Data;
 using SignalRSampleService.Hubs.Hubs;
@@ -70,6 +73,9 @@ namespace SignalRSampleService
             #region Data repositories
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             #endregion
+
+
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

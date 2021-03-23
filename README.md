@@ -23,8 +23,16 @@ docker run -p 8080:8080 signalr-sample-service
 
 ## development
 
+
+### dependencies
+
 <li>RabbitMQ portal</li>
 http://localhost:15672/#
+
+
+### app startup
+
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
 
 ## data layer

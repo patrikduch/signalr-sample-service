@@ -4,27 +4,7 @@ services:
   signalrsampleservice:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=34.245.227.140; Port=5432; Database=gps_tracker; Username=postgres; Password=patrikduch07041993"
     ports:
       - "80"
 
-  postgresdb:
-    container_name: postgres_db
-    image: "postgres" # use latest official postgres version
-    env_file:
-      - postgres.env # configure postgres
-    volumes:
-      - postgres-db-data:/var/lib/postgresql/data/ # persist data even 
-
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: rabbitmq
-    ports:
-     - 5672:5672 # communication port
-     - 15672:15672 # rabbitmq portal
-    volumes:
-      - rabbitmq-data:/var/lib/rabbitmq
-    hostname: rabbitmq
-
-volumes:
-  postgres-db-data:
-  rabbitmq-data:
