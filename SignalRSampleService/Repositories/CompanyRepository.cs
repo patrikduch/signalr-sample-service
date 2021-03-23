@@ -48,13 +48,16 @@ namespace SignalRSampleService.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Create a brand new company.
         /// </summary>
-        /// <param name="company"></param>
-        /// <returns></returns>
-        public Task<CompanyModel> Add(CompanyModel company)
+        /// <param name="company">New company item.</param>
+        /// <returns>Newly created company record.</returns>
+        public async Task<CompanyModel> Add(CompanyModel company)
         {
-            throw new NotImplementedException();
+            _companyDbContext.Add(company);
+            await _companyDbContext.SaveChangesAsync();
+
+            return company;
         }
 
         /// <summary>
@@ -70,14 +73,13 @@ namespace SignalRSampleService.Repositories
             return _mapper.Map<CompanyModel, CompanyItemDto>(entity);
         }
 
-
         /// <summary>
         /// Get the list of companies.
         /// </summary>
         /// <returns>Collection of companies.</returns>
         public async Task<IEnumerable<CompanyItemDto>> GetAll()
         {
-            var sql = "SELECT name, address, city, state, postalcode FROM company";
+            var sql = "SELECT id, name, address, city, state, postalcode FROM company";
             var entity = await _db.QueryAsync<CompanyModel>(sql);
 
             return _mapper.Map<List<CompanyModel>, List<CompanyItemDto>>(entity as List<CompanyModel>);
@@ -86,9 +88,9 @@ namespace SignalRSampleService.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="company"></param>
         /// <returns></returns>
-        public Task Remove(int id)
+        public Task<CompanyModel> Update(CompanyModel company)
         {
             throw new NotImplementedException();
         }
@@ -96,9 +98,9 @@ namespace SignalRSampleService.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="company"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public Task<CompanyModel> Update(CompanyModel company)
+        public Task Remove(int id)
         {
             throw new NotImplementedException();
         }
