@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SignalRSampleService.Configurations;
 using SignalRSampleService.Contexts;
 using SignalRSampleService.Data;
 using SignalRSampleService.Hubs.Hubs;
@@ -40,9 +41,13 @@ namespace SignalRSampleService
             {
                 config.AddConsumer<OrderConsumer>();
 
+                var rabbitMqSettings = Configuration.GetSection(nameof(RabbitMqSettings)).Get<RabbitMqSettings>();
+
+
                 config.UsingRabbitMq((ctx, cfg) =>
                 {
-                    cfg.Host("amqp://guest:guest@rabbitmq:5672");
+       
+                    cfg.Host(rabbitMqSettings.Host);
 
                     cfg.ReceiveEndpoint("order-queue", action =>
                     {
@@ -116,27 +121,6 @@ namespace SignalRSampleService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Net5WebAPI v1"));
             }
-
-            /*
-
-            var bus = Bus.Factory.CreateUsingRabbitMq(config =>
-            {
-                config.Host("amqp://guest:guest@rabbitmq");
-                config.ReceiveEndpoint("temp-queue", action => {
-
-                    action.Handler<Order>(ctx =>
-                    {
-                        return Console.Out.WriteLineAsync(ctx.Message.Name);
-                    });
-                
-                });
-            });
-
-            bus.Start();
-
-            bus.Publish(new Order { Name = "Test name " });
-
-            */
 
 
             app.UseRouting();

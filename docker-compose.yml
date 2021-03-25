@@ -30,6 +30,8 @@ services:
       - app-network
 
   rabbitmq:
+    environment:
+     - "RabbitMQSettings:Host=amqp://guest:guest@rabbitmq:5672"
     image: rabbitmq:3-management
     container_name: rabbitmq
     hostname: local-rabbitmq
