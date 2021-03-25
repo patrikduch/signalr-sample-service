@@ -35,12 +35,15 @@ namespace SignalRSampleService.Repositories
         /// Initializes a new instance of the <seealso cref="ProjectDetailRepository"/> class.
         /// </summary>
         /// <param name="configuration"></param>
-        public ProjectDetailRepository(IConfiguration configuration, IMapper mapper)
+        /// <param name="mapper"></param>
+        /// <param name="projectDetailContext"></param>
+        public ProjectDetailRepository(IConfiguration configuration, IMapper mapper, ProjectDetailContext projectDetailContext)
         {
             var connString = configuration.GetConnectionString("DefaultConnection");
             _db = new NpgsqlConnection(connString);
 
             _mapper = mapper;
+            _projectdetailDbContext = projectDetailContext;
         }
 
         /// <summary>
@@ -59,7 +62,7 @@ namespace SignalRSampleService.Repositories
         /// Update some of properties of <seealso cref="ProjectDetailModel"/> entity.
         /// </summary>
         /// <param name="projectDetailUpdate">Updated projectdetail data.</param>
-        public async Task UpdateProjectDetail(ProjectDetailUpdate projectDetailUpdate)
+        public async Task UpdateProjectDetail(ProjectDetailUpdateDto projectDetailUpdate)
         {
             _projectdetailDbContext.Update(projectDetailUpdate);
             await _projectdetailDbContext.SaveChangesAsync();

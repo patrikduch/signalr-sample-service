@@ -30,16 +30,16 @@ services:
       - app-network
 
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3-management
     container_name: rabbitmq
+    hostname: local-rabbitmq
     ports:
-      - 5672:5672
       - 15672:15672
+      - 5672:5672
     volumes:
       - rabbitmqdata:/var/lib/rabbitmq
     networks:
       - app-network
-    hostname: rabbitmq
 networks:
   app-network:
     driver: bridge

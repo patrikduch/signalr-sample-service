@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SignalRSampleService.Configurations;
 using SignalRSampleService.Contexts;
 using SignalRSampleService.Data;
 using SignalRSampleService.Hubs.Hubs;
+using SignalRSampleService.RabbitMq.Consumer;
 using SignalRSampleService.RabbitMq.Producer;
 using SignalRSampleService.Repositories;
 
@@ -28,6 +29,31 @@ namespace SignalRSampleService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            #region MassTransit
+
+            services.AddHealthChecks();
+
+            services.TryAddSingleton(KebabCaseEndpointNameFormatter.Instance);
+
+            services.AddMassTransit(config =>
+            {
+                config.AddConsumer<OrderConsumer>();
+
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host("amqp://guest:guest@rabbitmq:5672");
+
+                    cfg.ReceiveEndpoint("order-queue", action =>
+                    {
+                        action.ConfigureConsumer<OrderConsumer>(ctx);
+                    });
+                });
+            });
+
+            services.AddMassTransitHostedService();
+
+            #endregion
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -60,16 +86,16 @@ namespace SignalRSampleService
             #endregion
 
 
+
             #region EFCore
             services.AddDbContext<ProjectDetailContext>(options => options.UseNpgsql
-                (Configuration.GetConnectionString("DefaultConnection"))
+                (Configuration.GetSection("DatabaseSettings").GetConnectionString("DefaultConnection"))
             );
 
             services.AddDbContext<CompanyContext>(options => options.UseNpgsql
                 (Configuration.GetConnectionString("DefaultConnection"))
             );
             #endregion
-
 
             #region Data repositories
             services.AddScoped<ICompanyRepository, CompanyRepository>();
@@ -90,6 +116,28 @@ namespace SignalRSampleService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Net5WebAPI v1"));
             }
+
+            /*
+
+            var bus = Bus.Factory.CreateUsingRabbitMq(config =>
+            {
+                config.Host("amqp://guest:guest@rabbitmq");
+                config.ReceiveEndpoint("temp-queue", action => {
+
+                    action.Handler<Order>(ctx =>
+                    {
+                        return Console.Out.WriteLineAsync(ctx.Message.Name);
+                    });
+                
+                });
+            });
+
+            bus.Start();
+
+            bus.Publish(new Order { Name = "Test name " });
+
+            */
+
 
             app.UseRouting();
             app.UseAuthorization();

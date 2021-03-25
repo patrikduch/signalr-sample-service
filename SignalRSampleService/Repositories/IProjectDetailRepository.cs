@@ -10,6 +10,6 @@ namespace SignalRSampleService.Repositories
     {
         Task<ProjectDetailDto> GetProjectDetail();
 
-        Task UpdateProjectDetail(ProjectDetailUpdate projectDetailUpdate);
+        Task UpdateProjectDetail(ProjectDetailUpdateDto projectDetailUpdate);
     }
 }

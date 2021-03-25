@@ -15,6 +15,7 @@ namespace SignalRSampleService.Automapper.Profiles
         /// </summary>
         public ProjectDetailMapperProfile()
         {
+            CreateMap<ProjectDetailModel, ProjectDetailUpdateDto>();
             CreateMap<ProjectDetailModel, ProjectDetailDto>();
         }
     }

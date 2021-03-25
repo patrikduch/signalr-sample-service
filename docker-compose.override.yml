@@ -7,4 +7,7 @@ services:
       - "ConnectionStrings:DefaultConnection=Server=34.245.227.140; Port=5432; Database=gps_tracker; Username=postgres; Password=patrikduch07041993"
     ports:
       - "80"
+  rabbitmq:
+   environment:
+   - "RabbitMQSettings:Host=amqp://guest:guest@rabbitmq:5672"
 

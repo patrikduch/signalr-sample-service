@@ -8,7 +8,7 @@
     /// <summary>
     /// Record DTO for updating project detail information.
     /// </summary>
-    public record ProjectDetailUpdate(string Name);
+    public record ProjectDetailUpdateDto(string Name);
 
     /// <summary>
     /// Record DTO that repreents company item.

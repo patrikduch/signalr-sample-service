@@ -37,7 +37,7 @@ namespace SignalRSampleService.Controllers
         // PUT: api/<ProjectController>
 
         [HttpPut]
-        public async Task<ProjectDetailDto> Put([FromBody] ProjectDetailUpdate updateProjectDto)
+        public async Task<ProjectDetailDto> Put([FromBody] ProjectDetailUpdateDto updateProjectDto)
         {
             await _projectDetailRepository.UpdateProjectDetail(updateProjectDto);
 
