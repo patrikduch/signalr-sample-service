@@ -1,20 +1,11 @@
-using MassTransit;
-using MassTransit.Definition;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SignalRSampleService.Configurations;
-using SignalRSampleService.Contexts;
-using SignalRSampleService.Data;
 using SignalRSampleService.Hubs.Hubs;
-using SignalRSampleService.RabbitMq.Consumer;
 using SignalRSampleService.RabbitMq.Producer;
-using SignalRSampleService.Repositories;
 
 namespace SignalRSampleService
 {
@@ -32,6 +23,8 @@ namespace SignalRSampleService
         {
 
             #region MassTransit
+
+            /*
 
             services.AddHealthChecks();
 
@@ -58,6 +51,8 @@ namespace SignalRSampleService
 
             services.AddMassTransitHostedService();
 
+            */
+
             #endregion
 
             services.AddControllers();
@@ -72,8 +67,7 @@ namespace SignalRSampleService
                 options.AddPolicy("CorsPolicy", builder =>
                     builder
                     .WithOrigins(
-                        "http://localhost",
-                        "http://aspnetcorereactreduxtemplate-env.eba-mcv635ym.eu-west-1.elasticbeanstalk.com"
+                        "http://localhost"
                     )
                     .AllowAnyMethod()
                     .AllowAnyHeader()
@@ -90,22 +84,6 @@ namespace SignalRSampleService
             services.AddAutoMapper(typeof(Startup));
             #endregion
 
-
-
-            #region EFCore
-            services.AddDbContext<ProjectDetailContext>(options => options.UseNpgsql
-                (Configuration.GetSection("DatabaseSettings").GetConnectionString("DefaultConnection"))
-            );
-
-            services.AddDbContext<CompanyContext>(options => options.UseNpgsql
-                (Configuration.GetConnectionString("DefaultConnection"))
-            );
-            #endregion
-
-            #region Data repositories
-            services.AddScoped<ICompanyRepository, CompanyRepository>();
-            services.AddScoped<IProjectDetailRepository, ProjectDetailRepository>();
-            #endregion
 
             #region RabbitMQ dependencies
             services.AddScoped<IRabbitMqProducer, RabbitMqProducer>();
